@@ -16,61 +16,60 @@ A Python platform for planning, allocating, executing, and monitoring tasks acro
 ```text
 User/API → Gateway :8000 → Fleet Server :50051 → Device Workers
                                 ↓
-                                                 Telemetry :9000 + PostgreSQL + Dashboard :5173
-                                                 ```
+             Telemetry :9000 + PostgreSQL + Dashboard :5173
+```
 
-                                                 - **Gateway** — REST and WebSocket API
-                                                 - **Fleet Server** — planning, task-DAG generation, allocation, and execution
-                                                 - **Telemetry** — device heartbeats and health tracking
-                                                 - **Device Workers** — simulated or physical capability providers
-                                                 - **Dashboard** — live plans, task status, events, and device health
+- **Gateway** — REST and WebSocket API
+- **Fleet Server** — planning, task-DAG generation, allocation, and execution
+- **Telemetry** — device heartbeats and health tracking
+- **Device Workers** — simulated or physical capability providers
+- **Dashboard** — live plans, task status, events, and device health
 
-                                                 ## Execution Flow
+## Execution Flow
 
-                                                 1. Submit a goal.
-                                                 2. Generate a dependency-aware task graph.
-                                                 3. Allocate tasks by capability, cost, or LLM policy.
-                                                 4. Dispatch tasks in dependency order.
-                                                 5. Monitor telemetry and task progress.
-                                                 6. Retry or re-plan on failure.
+1. Submit a goal.
+2. Generate a dependency-aware task graph.
+3. Allocate tasks by capability, cost, or LLM policy.
+4. Dispatch tasks in dependency order.
+5. Monitor telemetry and task progress.
+6. Retry or re-plan on failure.
 
-                                                 ## Quick Start
+## Quick Start
 
-                                                 ```bash
-                                                 cd robot_fleet
-                                                 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
-                                                 ```
+```bash
+cd robot_fleet
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
 
-                                                 Dashboard: `http://localhost:5173`  
-                                                 Gateway API: `http://localhost:8000`
+Dashboard: `http://localhost:5173`  
+Gateway API: `http://localhost:8000`
 
-                                                 ## Project Structure
+## Project Structure
 
-                                                 ```text
-                                                 robot_fleet/
-                                                   services/       # fleet server, gateway, telemetry, dashboard
-                                                     robots/         # simulated and real device integrations
-                                                       packages/       # shared config, SDKs, models, metrics
-                                                         scripts/        # demo data and simulated-device scripts
-                                                         ```
+```text
+robot_fleet/
+├── services/   # fleet server, gateway, telemetry, dashboard
+├── robots/     # simulated and real device integrations
+├── packages/   # shared config, SDKs, models, metrics
+└── scripts/    # demo data and simulated-device scripts
+```
 
-                                                         ## Configuration
+## Configuration
 
-                                                         | Variable | Purpose |
-                                                         |---|---|
-                                                         | `DATABASE_URL` | PostgreSQL connection |
-                                                         | `OPENAI_API_KEY` | Required only for LLM planning/allocation |
-                                                         | `GATEWAY_PORT` | REST/WebSocket API port |
-                                                         | `TELEMETRY_PORT` | Health-monitoring port |
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | PostgreSQL connection |
+| `OPENAI_API_KEY` | Required only for LLM planning/allocation |
+| `GATEWAY_PORT` | REST/WebSocket API port |
+| `TELEMETRY_PORT` | Health-monitoring port |
 
-                                                         ## Monitoring and Reliability
+## Monitoring and Reliability
 
-                                                         - Device health and heartbeat monitoring
-                                                         - Structured execution logs
-                                                         - Failure detection, retry, and re-planning
-                                                         - Simulated devices for development and integration testing
+- Device health and heartbeat monitoring
+- Structured execution logs
+- Failure detection, retry, and re-planning
+- Simulated devices for development and integration testing
 
-                                                         ## Attribution
+## Attribution
 
-                                                         Originally forked from [therohangupta/agent-fleet](https://github.com/therohangupta/agent-fleet). The upstream license and attribution remain applicable.
-                                                         
+Originally forked from [therohangupta/agent-fleet](https://github.com/therohangupta/agent-fleet). The upstream license and attribution remain applicable.
